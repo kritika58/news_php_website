@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>News Source</title>
     <style>
-    #menu1 {
+    .msize {
         width:95%;
         height:95%;
         position:absolute;
@@ -64,7 +64,7 @@
     font-size: 35px;
     color: #8D1B3D;
     }
-    li {
+    .lii {
         float:left;
     }
     </style>
@@ -75,44 +75,58 @@
     include 'dbconnection.php';
     $id= $_GET["id"];
     ?>
+    <?php 
+        $sql = "SELECT * FROM news_arabic WHERE user_id='$id'"; 
+        $rs = $conn->query($sql);
+        $row = mysqli_fetch_array($rs);
+    ?>
         <div class="container" >
-  
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-            <li><a data-toggle="tab" href="#menu1">Source</a></li>
-        </ul>
-            <?php 
-            $sql = "SELECT * FROM news_arabic WHERE user_id='$id'"; 
-            $rs = $conn->query($sql);
-            $row = mysqli_fetch_array($rs);
-            ?>
-                <div class="tab-content">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li><a data-toggle="tab" href="#menu1">Wikipedia</a></li>
+                <li><a data-toggle="tab" href="#menu2">Source</a></li>
+                <li><a data-toggle="tab" href="#menu3">RSS Feed</a></li>
+            </ul>
 
-                <div id="home" class="tab-pane fade in active">  
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
                     <img align="left" style="width: 55px; height:55px;" src="<?php echo $row["user_profile_image_url"]?>"> 
-                    <h3 class="heading"><?php echo $row["user_name"]?>/<?php echo $row["user_screen_name"]?></h3>  
+                    <h3 class="heading"><?php echo $row["user_name"]?></h3>  
                     <hr>
                     <p class="desc"><?php echo $row["user_description"]?></p>
                     <br>
                     <center>
                     <ul class="social-network social-circle">
-                        <li><a href="<?php echo $row["RSS Feed link"]?>" target="_blank" class="icoRss" title="Rss"><i class="glyphicon fa fa-rss"></i></a>
+                        <li class="lii">
+                            <?php $fb= "https://www.facebook.com/".$row["Facebook Page (https://www.facebook.com/)"]?>
+                            <a href=<?php echo $fb ?> target="_blank" class="icoFacebook" title="Facebook">
+                            <i class="glyphicon fa fa-facebook"></i></a>
                         </li>
-                        <li>
-                            <?php $fb= "https://www.facebook.com/".$row["Facebook Page (https://www.facebook.com/)"]?><a href=<?php echo $fb ?> target="_blank" class="icoFacebook" title="Facebook"><i class="glyphicon fa fa-facebook"></i></a>
+                        <li class="lii">
+                            <?php $tw="https://twitter.com/".$row["user_screen_name"] ?>
+                            <a href=<?php echo $tw ?> target="_blank" class="icoTwitter" title="Twitter">
+                            <i class="glyphicon fa fa-twitter"></i></a>
                         </li>
-                        <li>
-                            <?php $tw="https://twitter.com/".$row["user_screen_name"] ?><a href=<?php echo $tw ?> target="_blank" class="icoTwitter" title="Twitter"><i class="glyphicon fa fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <?php $wiki="https://ar.wikipedia.org/wiki/".$row["Wikipedia page (https://ar.wikipedia.org/wiki/)"] ?><a href=<?php echo $wiki ?> target="_blank" class="icoWikipedia" title="Wikipedia"><i class="glyphicon fa fa-wikipedia-w"></i></a>
+                        <li class="lii">
+                        <?php $alexa="https://www.alexa.com/siteinfo/".$row["Alexa page (https://www.alexa.com/siteinfo/)"] ?>
+                            <a href=<?php echo $alexa ?> target="_blank" class="icoWikipedia" title="Alexa">
+                            <i class="glyphicon fa fa-amazon"></i></a>
                         </li>
                     </ul>
                     <center>
                 </div>
-
-                <div id="menu1" class="tab-pane fade">
-                <iframe src="<?php echo $row["user_expanded_url"]?>" height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                <div id="menu1" class="tab-pane fade msize">
+                    <?php $wiki="https://ar.wikipedia.org/wiki/".$row["Wikipedia page (https://ar.wikipedia.org/wiki/)"] ?>
+                    <iframe src=<?php echo $wiki?> 
+                    height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div>
+                <div id="menu2" class="tab-pane fade msize">
+                    <iframe src="<?php echo $row["user_expanded_url"]?>" 
+                    height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div>
+                <div id="menu3" class="tab-pane fade msize">
+                    <iframe src="<?php echo $row["RSS Feed link"]?>" 
+                    height=95% width=95% frameborder="0" gesture="media"  allowfullscreen></iframe>
                 </div>
             </div>
         </div>
