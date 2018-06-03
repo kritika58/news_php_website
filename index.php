@@ -20,24 +20,35 @@ $result = $conn->query($sql);
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-3 sidenav" style="overflow-y:scroll; height:100%;">
+  <div class="col-sm-3 sidenav ScrollStyle">
       <h4>News Sources</h4>
-      <form action='index.php'>
+      <form action=# method="post">
       <ul  class="nav nav-pills nav-stacked">
+      
       <?php
         if ($result->num_rows > 0) {
         // output data of each row
             while($row = $result->fetch_assoc()) { ?>
             <li>
-            <span><input type="checkbox" name="<?php echo $row["user_id"]?>" value="<?php echo $row["user_name"]?>"><a href="display.php?id=<?php echo $row["user_id"]?>">
+            <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_name"]?>"><a href="display.php?id=<?php echo $row["user_id"]?>">
             <?php echo $row["user_name"]?></span>
             <img align="right" style="width: 30px; height:30px;" src="<?php echo $row["user_profile_image_url"]?>">
             </a>
             </li>
             <?php }} ?>
       </ul><br>
-      <button type="submit" class="btn btn-success">Select</button>
-      </form>
+      <input type="submit" name="submit" class="btn btn-success" value"Submit">
+            </form>
+            <?php
+    if(isset($_POST['submit'])){//to run PHP script on submit
+    if(!empty($_POST['check_list'])){
+    // Loop to store and display values of individual checked checkbox.
+    foreach($_POST['check_list'] as $selected){
+    echo $selected."</br>";
+    }
+    }
+    }
+    ?>
 
 <!--      <div class="input-group">
         <input type="text" class="form-control" placeholder="Search Blog..">
@@ -51,7 +62,9 @@ $result = $conn->query($sql);
     </div>
 
     <div class="col-sm-9">
+
       <h4><small>RECENT POSTS</small></h4>
+
       <hr>
       <h2>I Love Food</h2>
       <h5><span class="glyphicon glyphicon-time"></span> Post by Jane Dane, Sep 27, 2015.</h5>
