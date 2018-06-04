@@ -100,17 +100,17 @@
                         <li class="lii">
                             <?php $fb= "https://www.facebook.com/".$row["Facebook Page (https://www.facebook.com/)"]?>
                             <a href=<?php echo $fb ?> target="_blank" class="icoFacebook" title="Facebook">
-                            <i class="glyphicon fa fa-facebook"></i></a>
+                            <i style="color: rgb(59, 89, 152);" class="glyphicon fa fa-facebook"></i></a>
                         </li>
                         <li class="lii">
                             <?php $tw="https://twitter.com/".$row["user_screen_name"] ?>
                             <a href=<?php echo $tw ?> target="_blank" class="icoTwitter" title="Twitter">
-                            <i class="glyphicon fa fa-twitter"></i></a>
+                            <i style="color: #00aced;" class="glyphicon fa fa-twitter"></i></a>
                         </li>
                         <li class="lii">
                         <?php $alexa="https://www.alexa.com/siteinfo/".$row["Alexa page (https://www.alexa.com/siteinfo/)"] ?>
                             <a href=<?php echo $alexa ?> target="_blank" class="icoWikipedia" title="Alexa">
-                            <i class="glyphicon fa fa-amazon"></i></a>
+                            <i style="color: #000000;" class="glyphicon fa fa-amazon"></i></a>
                         </li>
                     </ul>
                     <center>
