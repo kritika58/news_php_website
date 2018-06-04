@@ -19,27 +19,45 @@ $result = $conn->query($sql);
   <script src="libs/js/jquery.js"></script>
   <!-- bootstrap JavaScript -->
   <script src="libs/js/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="libs/js/bootstrap/docs-assets/js/holder.js"></script>
+	<script src="libs/js/bootstrap/docs-assets/js/holder.js"></script>
+  <style>
+      .heading {
+        color: #8D1B3D;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 35px;
+        font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
 <div class="container-fluid">
   <div class="row content">
-  <div class="col-sm-3 sidenav ScrollStyle">
+    <center>
+    <div class="col-sm-12">
+      <h2 class="heading">QCRI- Mega News Project<h2>
+    </div>
+    <div class="col-sm-12">
+      <!-- TANYA ADD CODE HERE -->
+    </div>
+    </center>
+  <div style="min-height:100%;position:relative;" class="col-sm-3 sidenav ScrollStyle pre-scrollable" >
       <h4>News Sources</h4>
       <form action=# method="post">
       <ul  class="nav nav-pills nav-stacked">
       
-      <?php
-        if ($result->num_rows > 0) {
-        // output data of each row
-            while($row = $result->fetch_assoc()) { ?>
-            <li>
-            <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_name"]?>"><a href="display.php?id=<?php echo $row["user_id"]?>">
-            <?php echo $row["user_name"]?></span>
-            <img align="right" style="width: 30px; height:30px;" src="<?php echo $row["user_profile_image_url"]?>">
-            </a>
-            </li>
+        <?php
+          if ($result->num_rows > 0) {
+          // output data of each row
+              while($row = $result->fetch_assoc()) { 
+        ?>
+        <li>
+        <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_name"]?>">
+        <a href="display.php?id=<?php echo $row["user_id"]?>">
+        <?php echo $row["user_name"]?></span>
+        <img align="right" style="width: 30px; height:30px;" src="<?php echo $row["user_profile_image_url"]?>">
+        </a>
+        </li>
             <?php }} ?>
       </ul><br>
       <input type="submit" name="submit" class="btn btn-success" value"Submit">
