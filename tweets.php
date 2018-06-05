@@ -1,5 +1,5 @@
 
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-sm-9">
 				<!-- TWITTER USER PROFILE INFORMATION WILL BE HERE -->
 				<?php        
 				// keys from your app
@@ -98,7 +98,7 @@
 				
 			</div> <!-- end <div class="col-lg-4"> -->
 		 
-			<div class="col-lg-8">
+			<div class="col-lg-8 col-sm-9">
 				<!-- TWITTER USER FEED WILL BE HERE -->
 				<?php
 					$statuses_count=$tweets[0]['user']['statuses_count'];
