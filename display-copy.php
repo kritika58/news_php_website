@@ -10,17 +10,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>News Source</title>
     <style>
-    #menu1 {
+    .msize {
         width:95%;
         height:95%;
         position:absolute;
     }
     .heading {
-        color: #8D1B3D;
+        color: #428bca;
         font-family: "Times New Roman", Times, serif;
         font-size: 35px;
+        font-weight: bold;
+    }
+    .sm_heading {
+        color: #428bca;
+        font-family: "Times New Roman", Times, serif;
         font-weight: bold;
     }
     .desc {
@@ -60,13 +66,17 @@
     
     }
     }
-    .glyphicon {
+    .gsize {
     font-size: 35px;
-    color: #8D1B3D;
     }
-    li {
+    .lii {
         float:left;
     }
+    @media only screen and (min-width: 768px) {
+    table.tres { 
+        width:40%; 
+    }
+}
     </style>
     
 </head>
@@ -75,50 +85,124 @@
     include 'dbconnection.php';
     $id= $_GET["id"];
     ?>
+    <?php 
+        $sql = "SELECT * FROM news_arabic WHERE user_id='$id'"; 
+        $rs = $conn->query($sql);
+        $row = mysqli_fetch_array($rs);
+    ?>
         <div class="container" >
-  
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-            <li><a data-toggle="tab" href="#menu1">Source</a></li>
-        </ul>
-            <?php 
-            $sql = "SELECT * FROM news_arabic WHERE user_id='$id'"; 
-            $rs = $conn->query($sql);
-            $row = mysqli_fetch_array($rs);
-            ?>
-                <div class="tab-content">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li><a data-toggle="tab" href="#menu1">Wikipedia</a></li>
+                <li><a data-toggle="tab" href="#menu2">Source</a></li>
+                <!-- <li><a data-toggle="tab" href="#menu3">RSS Feed</a></li> -->
+            </ul>
 
-                <div id="home" class="tab-pane fade in active">  
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
                     <img align="left" style="width: 55px; height:55px;" src="<?php echo $row["user_profile_image_url"]?>"> 
-                    <h3 class="heading"><?php echo $row["user_name"]?>/<?php echo $row["user_screen_name"]?></h3>  
+                    <h3 class="heading"><?php echo $row["user_name"]?></h3>  
                     <hr>
-                    <p class="desc"><?php echo $row["user_description"]?></p>
+                    <p class="desc">Description: <?php echo $row["user_description"]?></p>
                     <br>
                     <center>
-                    <ul class="social-network social-circle">
-                        <li><a href="<?php echo $row["RSS Feed link"]?>" target="_blank" class="icoRss" title="Rss"><i class="glyphicon fa fa-rss"></i></a>
-                        </li>
-                        <li>
+                    <ul class="desc social-network social-circle">
+                        <li class="lii">
                             <?php $fb= "https://www.facebook.com/".$row["Facebook Page (https://www.facebook.com/)"]?>
                             <a href=<?php echo $fb ?> target="_blank" class="icoFacebook" title="Facebook">
-                            <i class="glyphicon fa fa-facebook"></i></a>
+                            <i style="color: rgb(59, 89, 152);" class="gsize fa fa-facebook-square"></i></a>
                         </li>
-                        <li>
+                        <li class="lii">
                             <?php $tw="https://twitter.com/".$row["user_screen_name"] ?>
                             <a href=<?php echo $tw ?> target="_blank" class="icoTwitter" title="Twitter">
-                            <i class="glyphicon fa fa-twitter"></i></a>
+                            <i style="color: #00aced;" class="gsize fa fa-twitter-square"></i></a>
                         </li>
-                        <li>
-                            <?php $wiki="https://ar.wikipedia.org/wiki/".$row["Wikipedia page (https://ar.wikipedia.org/wiki/)"] ?>
-                            <a href=<?php echo $wiki ?> target="_blank" class="icoWikipedia" title="Wikipedia">
-                            <i class="glyphicon fa fa-wikipedia-w"></i></a>
+                        <li class="lii">
+                        <?php $alexa="https://www.alexa.com/siteinfo/".$row["Alexa page (https://www.alexa.com/siteinfo/)"] ?>
+                            <a href=<?php echo $alexa ?> target="_blank" class="icoWikipedia" title="Alexa">
+                            <i style="color: #000000;" class="gsize fa fa-amazon"></i></a>
                         </li>
                     </ul>
                     <center>
+                    <br><hr>
+                    <div style="width:100%;"  class="tres table-responsive">
+                        <table class="tres desc table table-striped">
+                            <tr>
+                                <td>Location:</td>
+                                <td>
+                                <?php
+                                echo $row["country"];
+                                $flag= strtolower($row["country_code"]);
+                                $flag.=".svg";
+                                $f_path="flags\\".$flag;
+                                ?><span style="float:right;">
+                                <img style="width:35px;height:35px;" src="<?php echo $f_path ?>">
+                                </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <?php 
+                                $cat= $row["Category"];
+                                if (strcmp($cat,'General')==0)
+                                {
+                                    $fcat='General';
+                                    $gicon='fa fa-globe';
+                                }
+                                if (strcmp($cat,'Sports')==0)
+                                {
+                                    $fcat='Sports';
+                                    $gicon='fa fa-soccer-ball-o';
+                                }
+                                if (strcmp($cat,'Entertainment')==0)
+                                {
+                                    $fcat='Entertainment';
+                                    $gicon='fa fa-tv';
+                                }
+                                if (strcmp($cat,'Science')==0)
+                                {
+                                    $fcat='Science';
+                                    $gicon='fa fa-connectdevelop';
+                                }
+                                if (strcmp($cat,'Health')==0)
+                                {
+                                    $fcat='Health';
+                                    $gicon='healing';
+                                }
+                                if (strcmp($cat,'Economy')==0)
+                                {
+                                    $fcat='Economy';
+                                    $gicon='fa fa-money';
+                                }
+                                ?>
+                                <td>Category:</td>
+                                <td><?php echo $fcat?><span style="float:right;">
+                                <i class="gsize <?php echo $gicon?>"></i></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <h3 class="sm_heading">Social Media Profiles</h3>
+                    <div style="width:100%;"  class="t1res table-responsive">
+                    <table class="t1res desc table table-striped">
+                    <tr>
+                    <td>Facebook:</td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    </table> 
+                    </div>
                 </div>
-
-                <div id="menu1" class="tab-pane fade">
-                <iframe src="<?php echo $row["user_expanded_url"]?>" height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                <div id="menu1" class="tab-pane fade msize">
+                    <?php $wiki="https://ar.wikipedia.org/wiki/".$row["Wikipedia page (https://ar.wikipedia.org/wiki/)"] ?>
+                    <iframe src=<?php echo $wiki?> 
+                    height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div>
+                <div id="menu2" class="tab-pane fade msize">
+                    <iframe src="<?php echo $row["user_expanded_url"]?>" 
+                    height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div>
+                <div id="menu3" class="tab-pane fade msize">
+                    <iframe src="<?php echo $row["RSS Feed link"]?>" 
+                    height=95% width=95% frameborder="0" gesture="media"  allowfullscreen></iframe>
                 </div>
             </div>
         </div>

@@ -30,6 +30,10 @@ $result = $conn->query($sql);
     .head {
       height: 10%;
     }
+    .desc {
+        font-size: 20px;
+        font-family: "Times New Roman", Times, serif;
+    }
   </style>
 </head>
 <body>
@@ -44,10 +48,10 @@ $result = $conn->query($sql);
       <!-- TANYA ADD CODE HERE -->
     </div>
     </center>
-  <div style="max-height:80vh;" class="col-sm-3 sidenav pre-scrollable" >
+  <div style="max-height:78vh;" class="col-sm-3 sidenav pre-scrollable" >
     <h4>News Sources</h4>
     <form action=# method="post">
-      <ul  class="nav nav-pills nav-stacked">
+      <ul  class="desc nav nav-pills nav-stacked">
       
         <?php
           if ($result->num_rows > 0) {
@@ -58,7 +62,7 @@ $result = $conn->query($sql);
         <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_name"]?>">
         <a href="display.php?id=<?php echo $row["user_id"]?>">
         <?php echo $row["user_name"]?>
-        <img align="right" style="width: 30px; height:30px;" src="<?php echo $row["user_profile_image_url"]?>">
+        <img align="right" style="width: 40px; height:40px;" src="<?php echo $row["user_profile_image_url"]?>">
         </span>
         </a>
         </li>
@@ -66,16 +70,12 @@ $result = $conn->query($sql);
           }}
         ?>
       </ul>
-      <br>
-      
-    
   </div>
-  <div style="height:5%; position: absolute; float:left; left:0%; bottom:0%" class="col-sm-3 sidenav" >
+  <div style="height:5%; position: absolute; float:left; left:0%; bottom:5%" class="col-sm-3 sidenav" >
   <center>
   <input type="submit" name="submit" class="btn btn-primary" value"Submit">
   </form>
-  <!--
-  /* <?php
+  <?php
     if(isset($_POST['submit'])){//to run PHP script on submit
     if(!empty($_POST['check_list'])){
     // Loop to store and display values of individual checked checkbox.
@@ -84,8 +84,8 @@ $result = $conn->query($sql);
     }
     }
     }
-  ?> */
-  -->
+  ?>
+
   </center>
   </div>
   <div class="col-sm-9">  
@@ -95,7 +95,7 @@ $result = $conn->query($sql);
       </div>
   </div>
     <!-- call tweets.php -->
-    <?php include 'tweets.php'; ?>
+    <?php include 'tweets_new.php'; ?>
 		 
 	</div> <!-- end <div class="container"> -->	 
 		
