@@ -15,7 +15,7 @@
 					// specify number of tweets to be shown and twitter username
 					// for example, we want to show 20 of Taylor Swift's twitter posts
 					$request = array(
-										'count' => '5',
+										'count' => '10',
 										'screen_name' => 'AJArabic' 
 					);
 					
@@ -80,22 +80,22 @@
 					$tweets=json_decode($json, true);
 					
 					// show user information
-					echo "<div class='overflow-hidden'>";
+					//echo "<div class='overflow-hidden'>";
 					 
 						// user data
-						$profile_photo=str_replace("normal", "400x400", $tweets[0]['user']['profile_image_url_https']);
+						$profile_photo= $tweets[0]['user']['profile_image_url_https'];
 						$name=$tweets[0]['user']['name'];
 						$screen_name=$tweets[0]['user']['screen_name'];
 						
 						
 						// show other information about the user
-						echo "<div class='text-align-center'>";
-							echo "<div><h2>{$name}</h2></div>";
-							echo "<div><a href='https://twitter.com/{$screen_name}' target='_blank'>@{$screen_name}</a></div>";
-						echo "</div>";
+						//echo "<div class='text-align-center'>";
+							//echo "<div><h2>{$name}</h2></div>";
+							//echo "<div><a href='https://twitter.com/{$screen_name}' target='_blank'>@{$screen_name}</a></div>";
+						//echo "</div>";
 						 
-						echo "<hr />";
-					echo "</div>";
+						//echo "<hr />";
+					//echo "</div>";
 				?>
 				
 			</div> <!-- end <div class="col-lg-4"> -->
@@ -140,8 +140,11 @@
 									{
 										// show name and screen name
 										echo "<h4 class='margin-top-4px'>";
+										echo "<img src='{$profile_photo}' class='img-thumbnail' />";
+										echo "    ";
 											echo "<a href='https://twitter.com/{$screen_name}'>{$name}</a> ";
-											echo "<span class='color-gray'>@{$screen_name}</span>";
+											//echo "<span class='color-gray'>@{$screen_name}</span>";
+											
 										echo "</h4>";
 										
 										// get tweet time
@@ -150,6 +153,7 @@
 										echo nl2br("\n ");
 										
 										// output
+										
 										echo $tweet_text;
 										
 										
@@ -157,7 +161,7 @@
 										{
 											// get tweet picture
 											$tweet_pic = $tweet['entities']['media'][0]['media_url_https'];
-											echo "<img src='{$tweet_pic}' class='img-thumbnail' />";
+											echo "<img style=\"width:250px; height:150px;\" src='{$tweet_pic}' class='img-thumbnail' />";
 										}
 										
 									}

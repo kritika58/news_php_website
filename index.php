@@ -25,7 +25,7 @@ $result = $conn->query($sql);
 	<script src="libs/js/bootstrap/docs-assets/js/holder.js"></script>
     <style>
     .heading {
-    color: white;
+    color: black;
     font-family: "Times New Roman", Times, serif;
     font-weight: bold;
     font-size:30px;
@@ -39,11 +39,12 @@ $result = $conn->query($sql);
 <body>
 
 <div class="container-fluid">
-  <div style="padding: 2px 2px 2px 2px; margin: 5px; 5px;background-color:#3377ff; height:10%;" class="col-sm-12 row content">
-      <p class="heading">QCRI- Mega News Project</p>
-      <!-- <span style="float:right;">
-      <a href="manage.php" class="btn btn-primary" role="button">Manage Your Sources</a>
-      </span> -->
+  <div style="padding: 2px 2px 2px 2px; margin: 5px; 5px; height:10%;" class="col-sm-12 row content">
+    
+      <center><h1 class="heading">QCRI- Mega News Project</h1><center>
+      <span style="float:right;">
+      
+      </span>
           <!-- SEARCH BUTTON -->
           <!--
           <div class=" head col-sm-12">
@@ -105,9 +106,10 @@ $result = $conn->query($sql);
   </form>
   </center>
   </div>
-  <div class="col-sm-9">  
     <!-- PAGE CONTENT and PHP CODE WILL BE HERE -->  
-  </div>
+  <center>
+  <a href="manage.php" class="btn btn-primary" role="button">Manage Your Sources</a>
+  </center>
     <!-- call tweets.php -->
     <?php include 'tweets.php'; ?>
 		 

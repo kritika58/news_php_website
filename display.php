@@ -210,11 +210,21 @@
                     </tr>
                     <tr>
                     <td>Amazon Alexa:</td>
-                    <td><?php echo $row["user_favourites_count"]?> rank</td>
+                    <td><?php echo $row["user_id"]?> rank</td>
                     <td>
                     <?php $alexa="https://www.alexa.com/siteinfo/".$row["Alexa page (https://www.alexa.com/siteinfo/)"] ?>
                             <a href=<?php echo $alexa ?> target="_blank" class="icoWikipedia" title="Alexa">
                             <i style="color: #000000;" class="gsize fa fa-amazon"></i></a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>YouTube:</td>
+                    <?php $yt=round($row["user_friends_count"]*1.75); ?>
+                    <td><?php echo $yt ?> subscribers</td>
+                    <td>
+                    <?php $youtube="http://www.youtube.com/".$row["YouTube (http://www.youtube.com/)"] ?>
+                            <a href=<?php echo $youtube ?> target="_blank" class="icoWikipedia" title="YouTube">
+                            <i style="color: red" class="gsize fa fa-youtube-play"></i></a>
                     </td>
                     </tr>
                     </table> 
