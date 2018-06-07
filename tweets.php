@@ -1,7 +1,8 @@
-
-			<div class="col-lg-4 col-sm-9">
+<div class="col-lg-4 col-sm-9">
 				<!-- TWITTER USER PROFILE INFORMATION WILL BE HERE -->
 				<?php        
+				
+					
 				// keys from your app
 					$oauth_access_token = "996826218476462080-LlaSHEx8sxfmF1F5i7zqw0hBZhoze6b";
 					$oauth_access_token_secret = "sTYW7SLuzzb2gL46a9WVmp7hzPV3GDLuExYkstPjXbPUX";
@@ -10,11 +11,12 @@
 		 
 					// we are going to use "user_timeline"
 					$twitter_timeline = "user_timeline";
-		 
+					
 					// specify number of tweets to be shown and twitter username
 					// for example, we want to show 20 of Taylor Swift's twitter posts
-					$request = array('count' => '100',
-							'screen_name' => 'AJArabic'
+					$request = array(
+										'count' => '5',
+										'screen_name' => 'AJArabic' 
 					);
 					
 					// put oauth values in one oauth array variable
@@ -117,32 +119,47 @@
 							// show tweet content
 							echo "<div class='tweet-text'>";
 								 
-								// show name and screen name
-								echo "<h4 class='margin-top-4px'>";
-									echo "<a href='https://twitter.com/{$screen_name}'>{$name}</a> ";
-									echo "<span class='color-gray'>@{$screen_name}</span>";
-								echo "</h4>";
+								
 								 
 								// show tweet text
 								echo "<div class='margin-zero'>";
 								
-									// get tweet time
-									$tweet_time = $tweet['created_at'];
-									echo $tweet_time;
-									echo nl2br("\n ");
+									
 									
 									// get tweet text
 									$tweet_text=$tweet['text'];
+										
+									
 									 
 									// make links clickable
-									$tweet_text=preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $tweet_text);
+									$tweet_text=preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', '<a href="$1" target="_blank">read more ...</a>', $tweet_text);
 									
 									// filter out the retweets 
 									
 									if(preg_match('/^RT/', $tweet_text) == 0)
 									{
+										// show name and screen name
+										echo "<h4 class='margin-top-4px'>";
+											echo "<a href='https://twitter.com/{$screen_name}'>{$name}</a> ";
+											echo "<span class='color-gray'>@{$screen_name}</span>";
+										echo "</h4>";
+										
+										// get tweet time
+										$tweet_time = $tweet['created_at'];
+										echo $tweet_time;
+										echo nl2br("\n ");
+										
 										// output
 										echo $tweet_text;
+										
+										
+										if (array_key_exists('media', $tweet['entities']))
+										{
+											// get tweet picture
+											$tweet_pic = $tweet['entities']['media'][0]['media_url_https'];
+											echo "<img src='{$tweet_pic}' class='img-thumbnail' />";
+										}
+										
 									}
 									
 								echo "</div>";

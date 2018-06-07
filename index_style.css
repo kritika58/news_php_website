@@ -30,8 +30,16 @@ footer {
   height: 35px;
 
 }
-.ScrollStyle
-{
-    max-height: 90%;
-    overflow-y: scroll;
+.heading {
+  color: #8D1B3D;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 35px;
+  font-weight: bold;
+}
+.head {
+height: 10%;
+}
+.desc {
+  font-size: 20px;
+  font-family: "Times New Roman", Times, serif;
 }

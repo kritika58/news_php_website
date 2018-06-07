@@ -1,6 +1,6 @@
 <?php
 include 'dbconnection.php';
-$sql = "SELECT user_id,user_name,user_profile_image_url FROM news_arabic";
+$sql = "SELECT * FROM news_arabic";
 $result = $conn->query($sql);
 ?>
 
@@ -10,44 +10,72 @@ $result = $conn->query($sql);
   <title>QCRI- News Mega Project</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" src="index_style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="index_style.css"> -->
   <link rel="icon" type="image/png" href="https://excellence.qa/wp-content/uploads/2016/12/qatar-foundation.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
   <!-- jQuery library -->
   <script src="libs/js/jquery.js"></script>
   <!-- bootstrap JavaScript -->
   <script src="libs/js/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="libs/js/bootstrap/docs-assets/js/holder.js"></script>
-  <style>
-      .heading {
-        color: #8D1B3D;
-        font-family: "Times New Roman", Times, serif;
-        font-size: 35px;
-        font-weight: bold;
-    }
-    .head {
-      height: 10%;
+    <style>
+    .heading {
+    color: white;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    font-size:30px;
     }
     .desc {
-        font-size: 20px;
-        font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
     }
-  </style>
+    </style>
 </head>
 <body>
 
 <div class="container-fluid">
-  <div class="row content">
-    <center>
-    <div class="head col-sm-12">
-      <h2 class="heading">QCRI- Mega News Project<h2>
-    </div>
-    <div class=" head col-sm-12">
-      <!-- TANYA ADD CODE HERE -->
-    </div>
-    </center>
+  <div style="padding: 2px 2px 2px 2px; margin: 5px; 5px;background-color:#3377ff; height:10%;" class="col-sm-12 row content">
+      <p class="heading">QCRI- Mega News Project</p>
+      <!-- <span style="float:right;">
+      <a href="manage.php" class="btn btn-primary" role="button">Manage Your Sources</a>
+      </span> -->
+          <!-- SEARCH BUTTON -->
+          <!--
+          <div class=" head col-sm-12">
+          -->
+          <!-- TANYA ADD CODE HERE 
+          <form action=# method="post">
+          <input type="text" name="Search" value="Search"><br>
+          <input type="submit" value="search">
+          </form>
+     
+          <?php
+          $count=0;
+          if(isset($_POST['search'])){
+            while($row = $result->fetch_array(MYSQLI_ASSOC)){
+                              foreach ($row[user_name] as $user_name) {
+                              $count++ ;
+                                  if($search== $user_name){
+                                  echo "The news source you are looking for is in row number" . $count;
+                                  echo "if statement";
+
+                                  }
+                                  echo "in loop";
+                              }
+                echo "while";
+            }
+
+          }
+          ?>  -->
+
+  </div>
+    
+  
   <div style="max-height:78vh;" class="col-sm-3 sidenav pre-scrollable" >
     <h4>News Sources</h4>
     <form action=# method="post">
@@ -75,27 +103,13 @@ $result = $conn->query($sql);
   <center>
   <input type="submit" name="submit" class="btn btn-primary" value"Submit">
   </form>
-  <?php
-    if(isset($_POST['submit'])){//to run PHP script on submit
-    if(!empty($_POST['check_list'])){
-    // Loop to store and display values of individual checked checkbox.
-    foreach($_POST['check_list'] as $selected){
-    echo $selected."</br>";
-    }
-    }
-    }
-  ?>
-
   </center>
   </div>
   <div class="col-sm-9">  
     <!-- PAGE CONTENT and PHP CODE WILL BE HERE -->  
-    <div class="page-header">
-          <h1> Live Twitter Feed </h1>
-      </div>
   </div>
     <!-- call tweets.php -->
-    <?php include 'tweets_new.php'; ?>
+    <?php include 'tweets.php'; ?>
 		 
 	</div> <!-- end <div class="container"> -->	 
 		
@@ -109,10 +123,10 @@ $result = $conn->query($sql);
 		 
 
 </div>
-
+<!--
 <footer class="container-fluid">
   <p style="text-align: center; background-color: #555;">Copyright @QCRI</p>
 </footer>
-
+-->
 </body>
 </html>
