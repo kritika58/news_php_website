@@ -108,7 +108,9 @@ $result = $conn->query($sql);
   </div>
     <!-- PAGE CONTENT and PHP CODE WILL BE HERE -->  
   <center>
-  <a href="manage.php" class="btn btn-primary" role="button">Manage Your Sources</a>
+  <div class="col-sm-9">
+  <a style="width:100%;background-color: gray;" href="manage.php" class="btn btn-primary btn-block" role="button">Manage Your Sources</a>
+  </div>
   </center>
     <!-- call tweets.php -->
     <?php include 'tweets.php'; ?>
