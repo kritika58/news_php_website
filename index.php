@@ -42,9 +42,6 @@ $result = $conn->query($sql);
   <div style="padding: 2px 2px 2px 2px; margin: 5px; 5px; height:10%;" class="col-sm-12 row content">
     
       <center><h1 class="heading">QCRI- Mega News Project</h1><center>
-      <span style="float:right;">
-      
-      </span>
           <!-- SEARCH BUTTON -->
           <!--
           <div class=" head col-sm-12">
@@ -77,7 +74,8 @@ $result = $conn->query($sql);
   </div>
     
   
-  <div style="max-height:78vh;" class="col-sm-3 sidenav pre-scrollable" >
+  <div class="col-sm-3 sidenav" >
+  <div style="max-height:78vh;" class= "pre-scrollable"> 
     <h4>News Sources</h4>
     <form action=# method="post">
       <ul  class="desc nav nav-pills nav-stacked">
@@ -100,7 +98,6 @@ $result = $conn->query($sql);
         ?>
       </ul>
   </div>
-  <div style="height:5%; position: absolute; float:left; left:0%; bottom:5%" class="col-sm-3 sidenav" >
   <center>
   <input type="submit" name="submit" class="btn btn-primary" value"Submit">
   </form>
