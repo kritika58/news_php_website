@@ -224,7 +224,14 @@
                     height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                 </div>
                 <div id="menu3" class="tab-pane fade msize">
-                    <iframe src="<?php echo $row["RSS Feed link"]?>" 
+                    <?php 
+                    $rss=$row["RSS Feed link"];
+                    if($row["RSS Feed link"]=='-')
+                    {
+                        echo "<h2 style=\"text-color:red;\">RSS Feed Unavailable</h2>";
+                        $rss=$row["user_expanded_url"];
+                    } ?>
+                    <iframe src="<?php echo $rss ?>" 
                     height=95% width=95% frameborder="0" gesture="media"  allowfullscreen></iframe>
                 </div>
             </div>
