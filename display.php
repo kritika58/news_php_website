@@ -192,7 +192,7 @@
                     <table class="t1res desc table table-striped">
                     <tr>
                     <td>Facebook:</td>
-                    <td><?php echo $row["user_friends_count"]?> friends</td>
+                    <td>12345 friends</td>
                     <td>
                     <?php $fb= "https://www.facebook.com/".$row["Facebook Page (https://www.facebook.com/)"]?>
                             <a href=<?php echo $fb ?> target="_blank" class="icoFacebook" title="Facebook">
@@ -210,7 +210,7 @@
                     </tr>
                     <tr>
                     <td>Amazon Alexa:</td>
-                    <td><?php echo $row["user_id"]?> rank</td>
+                    <td>12345 rank</td>
                     <td>
                     <?php $alexa="https://www.alexa.com/siteinfo/".$row["Alexa page (https://www.alexa.com/siteinfo/)"] ?>
                             <a href=<?php echo $alexa ?> target="_blank" class="icoWikipedia" title="Alexa">
@@ -219,8 +219,7 @@
                     </tr>
                     <tr>
                     <td>YouTube:</td>
-                    <?php $yt=round($row["user_friends_count"]*1.75); ?>
-                    <td><?php echo $yt ?> subscribers</td>
+                    <td>12345 subscribers</td>
                     <td>
                     <?php $youtube="http://www.youtube.com/".$row["YouTube (http://www.youtube.com/)"] ?>
                             <a href=<?php echo $youtube ?> target="_blank" class="icoWikipedia" title="YouTube">
