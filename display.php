@@ -97,9 +97,12 @@
     ?>
         <div class="container" >
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">Home &ensp;<span style="float:right;">
+                                <i style="color:black;font-size: 25px;" class="fa fa-home">
+                                </i></span></a></li>
                 <li><a data-toggle="tab" href="#menu1">Wikipedia &ensp;<span style="float:right;">
-                                <i style="color: black;font-size: 20px; font-weight:bold;" class="fa fa-wikipedia-w"></i></span></a></li>
+                <img align="left" style="width: 25px; height:25px;" src="wiki.png">
+                                </span></a></li>
                 <li><a data-toggle="tab" href="#menu2">Source  &ensp;<span style="float:right;">
                 <img align="left" style="width: 25px; height:25px;" src="<?php echo $row["user_profile_image_url"]?>">
                 </span></a></li>
@@ -112,7 +115,7 @@
                     <img align="left" style="width: 55px; height:55px;" src="<?php echo $row["user_profile_image_url"]?>"> 
                     <h3 class="heading"><?php echo $row["user_name"]?></h3>  
                     <hr>
-                    <p class="desc">Description: <?php echo $row["user_description"]?></p>
+                    <p class="desc"><u>Description:</u>&ensp;<?php echo $row["user_description"]?></p>
                     <br>
                     <center>
                     <center>

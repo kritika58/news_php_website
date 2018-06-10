@@ -175,8 +175,8 @@ $result = $conn->query($sql);
               </ul>
           </div>
           <div class="panel-body">
-            <a style="width:100%;background-color: gray;" href="manage.php" 
-            class="btn btn-primary btn-block" role="button">Manage Your Sources</a>
+            <!-- <a style="width:100%;background-color: gray;" href="manage.php" 
+            class="btn btn-primary btn-block" role="button">Manage Your Sources</a> -->
 
             <?php include 'tweets.php'; ?>
           </div>

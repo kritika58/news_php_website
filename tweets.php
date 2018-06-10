@@ -2,28 +2,42 @@
 .profile_img {
 	width:35px;
 	height:35px;
+	display:inline-block;
 }
 .username {
 	font-size: 25px;
 	font-weight:bold;
     font-family: "Times New Roman", Times, serif;
+	display: inline-block;
 }
 .tweet {
-	font-size: 18px;
+	font-size: 20px;
     font-family: "Times New Roman", Times, serif;	
+	display: inline-block;
+}
+.tweet_time {
+	font-size: 15px;
+    font-family: "Times New Roman", Times, serif;			
+	display:inline-block;
 }
 .div_tweet {
 	border: 1px #eee solid;
 	min-height: 100px;
 	overflow: auto;
-	align:left;
+}
+.tweet_pic {
+	margin: 10px 10px;
+	width:250px;
+	height:150px;
+	top:0%;
+	float:right;
+	display: inline-block;
+	vertical-align:top;
 }
 </style>
 
 <!-- TWITTER USER PROFILE INFORMATION WILL BE HERE -->
-<?php        
-
-	
+<?php   	
 // keys from your app
 	$oauth_access_token = "996826218476462080-LlaSHEx8sxfmF1F5i7zqw0hBZhoze6b";
 	$oauth_access_token_secret = "sTYW7SLuzzb2gL46a9WVmp7hzPV3GDLuExYkstPjXbPUX";
@@ -160,7 +174,7 @@
 							
 							// get tweet time
 							$tweet_time = $tweet['created_at'];
-							echo $tweet_time;
+							echo "<div class='tweet_time'>$tweet_time</div>";
 							echo nl2br("\n ");
 							
 							// output
@@ -172,7 +186,7 @@
 							{
 								// get tweet picture
 								$tweet_pic = $tweet['entities']['media'][0]['media_url_https'];
-								echo "<img style=\"display:block; margin: 10px 10px; width:250px; height:150px; float:right;\" src='{$tweet_pic}' class='img-thumbnail'/>";
+								echo "<img class='tweet_pic' src='{$tweet_pic}' class='img-thumbnail'/>";
 							}
 							else 
 							{
