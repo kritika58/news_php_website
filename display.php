@@ -98,9 +98,13 @@
         <div class="container" >
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                <li><a data-toggle="tab" href="#menu1">Wikipedia</a></li>
-                <li><a data-toggle="tab" href="#menu2">Source</a></li>
-                <!-- <li><a data-toggle="tab" href="#menu3">RSS Feed</a></li> -->
+                <li><a data-toggle="tab" href="#menu1">Wikipedia &ensp;<span style="float:right;">
+                                <i style="color: black;font-size: 20px; font-weight:bold;" class="fa fa-wikipedia-w"></i></span></a></li>
+                <li><a data-toggle="tab" href="#menu2">Source  &ensp;<span style="float:right;">
+                <img align="left" style="width: 25px; height:25px;" src="<?php echo $row["user_profile_image_url"]?>">
+                </span></a></li>
+                <li><a data-toggle="tab" href="#menu3">RSS Feed &ensp;<span style="float:right;">
+                                <i style="color: orange;font-size: 25px;" class="fa fa-rss-square"></i></span></a></li>
             </ul>
 
             <div class="tab-content">
@@ -111,30 +115,11 @@
                     <p class="desc">Description: <?php echo $row["user_description"]?></p>
                     <br>
                     <center>
-                    <!--
-                    <ul class="desc social-network social-circle">
-                        <li class="lii">
-                            <?php $fb= "https://www.facebook.com/".$row["Facebook Page (https://www.facebook.com/)"]?>
-                            <a href=<?php echo $fb ?> target="_blank" class="icoFacebook" title="Facebook">
-                            <i style="color: rgb(59, 89, 152);" class="gsize fa fa-facebook-square"></i></a>
-                        </li>
-                        <li class="lii">
-                            <?php $tw="https://twitter.com/".$row["user_screen_name"] ?>
-                            <a href=<?php echo $tw ?> target="_blank" class="icoTwitter" title="Twitter">
-                            <i style="color: #00aced;" class="gsize fa fa-twitter-square"></i></a>
-                        </li>
-                        <li class="lii">
-                        <?php $alexa="https://www.alexa.com/siteinfo/".$row["Alexa page (https://www.alexa.com/siteinfo/)"] ?>
-                            <a href=<?php echo $alexa ?> target="_blank" class="icoWikipedia" title="Alexa">
-                            <i style="color: #000000;" class="gsize fa fa-amazon"></i></a>
-                        </li>
-                    </ul>
-                    -->
                     <center>
                     <div style="width:100%;"  class="tres table-responsive">
                         <table class="tres desc table table-striped">
                             <tr>
-                                <td>Location:</td>
+                                <td>Country:</td>
                                 <td>
                                 <?php
                                 echo $row["country"];
@@ -234,7 +219,7 @@
                     <iframe src=<?php echo $wiki?> 
                     height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                 </div>
-                <div id="menu2" class="tab-pane fade msize">
+                <div style="align:left;" id="menu2" class="tab-pane fade msize">
                     <iframe src="<?php echo $row["user_expanded_url"]?>" 
                     height=95% width=95% frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                 </div>
