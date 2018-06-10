@@ -30,6 +30,9 @@ $result = $conn->query($sql);
     font-weight: bold;
     font-size:30px;
     }
+    .gsize {
+    font-size: 35px;
+    }
     .desc {
     font-size: 20px;
     font-family: "Times New Roman", Times, serif;
@@ -136,15 +139,28 @@ $result = $conn->query($sql);
   
   <div class="col-sm-3 sidenav" >
   <div style="max-height:78vh;" class= "pre-scrollable"> 
-    <h4>News Sources</h4>
-    <form action=# method="post">
+    
+  <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">News Sources</a></li>
+                <li><a data-toggle="tab" href="#menu1">My Sources</a></li>
+  </ul>
+    
+  <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                <form action=# method="post">
+    
       <ul  class="desc hnav">
-      
+      <br>
+        <center>
+        <input type="submit" class="btn btn-primary" value="Add to my sources">
+        </center>
+        <br>
         <?php
           if ($result->num_rows > 0) {
           // output data of each row
               while($row = $result->fetch_assoc()) { 
         ?>
+
         <li>
         <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_name"]?>">
         <a href="display.php?id=<?php echo $row["user_id"]?>">
@@ -156,13 +172,102 @@ $result = $conn->query($sql);
         <?php
           }}
         ?>
+        </form>
       </ul>
+      </div>
+
+      <div id="menu1" class="tab-pane fade msize">
+          <br>
+          <form id="form3" action="<?=$_SERVER['PHP_SELF'];?>" method="POST" >
+              <select class="form-control" name="country" required>
+                  <option value="qa">Qatar</option>
+                  <option value="sa">Saudi Arabia</option>
+                  <option value="ae">UAE</option>
+                  <option value="kw">Kuwait</option>
+                  <option value="gb">UK</option>
+                  <option value="us">USA</option>
+              </select>
+              <br>
+              <select class="form-control" name="category" required>
+                  <h2>Please select a category</h2>
+                  <option value="General">General</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Science">Science</option>
+                  <option value="Health">Health</option>
+                  <option value="Economy">Economy</option>
+              </select>
+              <br>
+              <center>
+                <input type="submit" name="apply" class="btn btn-primary" value="Apply">
+              </center>
+          </form>
+          <?php 
+              if(isset($_POST['apply'])){
+              $selected_country = $_POST['country'];
+              if ($selected_country=='qa')
+              {
+                $country_name='Qatar';
+              }
+              else if ($selected_country=='sa')
+              {
+                $country_name='Saudi Arabia';
+              }
+              else if ($selected_country=='ae')
+              {
+                $country_name='UAE';
+              }
+              else if ($selected_country=='gb')
+              {
+                $country_name='UK';
+              }
+              else if ($selected_country=='us')
+              {
+                $country_name='USA';
+              }
+              else if ($selected_country=='kw')
+              {
+                $country_name='Kuwait';
+              }
+              $selected_category = $_POST['category'];
+              $sql = "SELECT * FROM news_arabic WHERE country_code='".$selected_country."' AND Category='".$selected_category."' ";
+              $result1 = $conn->query($sql);
+              echo '<p class=\'desc\'>You have selected '.mysqli_num_rows($result1).' sources from '.$country_name.' in '.$selected_category.' category.</p>';
+          
+              echo "<ul  class='desc hnav'>";		
+              $i=0;
+              while ($row = $result1->fetch_array(MYSQLI_ASSOC))
+              {
+                  $uname[]=$row["user_name"];
+                  $id[]=$row["user_id"];
+                  $img[]=$row["user_profile_image_url"];
+                  echo "<li>";
+                  echo "<span><input type=\"checkbox\" name=\"check_list1[]\" value=$uname[$i] checked>
+                  <a href=\"display.php?id=$id[$i]?>\">$uname[$i]
+                  <img align=\"right\" style=\"width: 40px; height:40px;\" src=$img[$i]>
+                  </span>
+                  </a>
+                  </li>";  
+                  $i++;
+              }
+              echo "</ul>";
+              echo "<br>";
+              }
+          ?>
+
+      </div>
+
+
+      </div>
+
+
+
+
+
   </div>
-  <center>
-  <input type="submit" class="btn btn-primary" value"Add to my sources">
-  </form>
-  </center>
+  
   </div>
+  <hr>
     <!-- PAGE CONTENT and PHP CODE WILL BE HERE -->  
   
   <div class="col-sm-9">

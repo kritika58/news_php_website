@@ -7,12 +7,13 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>QCRI- News Mega Project</title>
+  <title>QCRI-Mega News Project</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="scroll.css">
+  <link rel="stylesheet" type="text/css" href="navbar.css">
   <link rel="icon" type="image/png" href="favicon.gif">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -25,10 +26,10 @@ $result = $conn->query($sql);
 	<script src="libs/js/bootstrap/docs-assets/js/holder.js"></script>
     <style>
     .heading {
-    color: black;
     font-family: "Times New Roman", Times, serif;
     font-weight: bold;
-    font-size:30px;
+    font-size:200%;
+    float:left;
     }
     .gsize {
     font-size: 35px;
@@ -101,10 +102,14 @@ $result = $conn->query($sql);
 </head>
 <body>
 
-<div class="container-fluid">
-  <div style="padding: 2px 2px 2px 2px; margin: 5px; 5px; height:10%;" class="col-sm-12 row content">
-    
-      <center><h1 class="heading">QCRI- Mega News Project</h1><center>
+<nav class="navbar navbar-dark bg-dark justify-content-between">
+  <a class="heading navbar-brand">QCRI- Mega News Project</a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+  <!-- Navbar content -->
           <!-- SEARCH BUTTON -->
           <!--
           <div class=" head col-sm-12">
@@ -133,8 +138,6 @@ $result = $conn->query($sql);
 
           }
           ?>  -->
-
-  </div>
     
   
   <div class="col-sm-3 sidenav" >
@@ -201,7 +204,6 @@ $result = $conn->query($sql);
               <center>
                 <input type="submit" name="apply" class="btn btn-primary" value="Apply">
               </center>
-              <hr>
           </form>
           <?php 
               if(isset($_POST['apply'])){
@@ -266,8 +268,9 @@ $result = $conn->query($sql);
 
 
   </div>
-  
+  <hr> 
   </div>
+ 
     <!-- PAGE CONTENT and PHP CODE WILL BE HERE -->  
   
   <div class="col-sm-9">
