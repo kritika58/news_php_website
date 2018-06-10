@@ -1,4 +1,5 @@
-<div class="col-lg-4 col-sm-9">
+
+			<div class="col-lg-4 col-sm-9">
 				<!-- TWITTER USER PROFILE INFORMATION WILL BE HERE -->
 				<?php        
 				
@@ -106,6 +107,7 @@
 					$statuses_count=$tweets[0]['user']['statuses_count'];
 					$followers_count=$tweets[0]['user']['followers_count'];
 					$now = date('Y-m-d H:i');
+					$mytweets = fopen("tweets.csv", "w");
 					
 					
 					// show tweets
@@ -140,8 +142,8 @@
 									{
 										// show name and screen name
 										echo "<h4 class='margin-top-4px'>";
-										echo "<img src='{$profile_photo}' class='img-thumbnail' />";
-										echo "    ";
+											echo "<img src='{$profile_photo}' class='img-thumbnail' />";
+											echo "      ";
 											echo "<a href='https://twitter.com/{$screen_name}'>{$name}</a> ";
 											//echo "<span class='color-gray'>@{$screen_name}</span>";
 											
@@ -153,17 +155,30 @@
 										echo nl2br("\n ");
 										
 										// output
-										
 										echo $tweet_text;
+										$tweet_text = str_replace("\n"," ",$tweet_text);
+
 										
-										
+										$tweet_pic;
 										if (array_key_exists('media', $tweet['entities']))
 										{
 											// get tweet picture
 											$tweet_pic = $tweet['entities']['media'][0]['media_url_https'];
-											echo "<img style=\"width:250px; height:150px;\" src='{$tweet_pic}' class='img-thumbnail' />";
+											echo "<img src='{$tweet_pic}' class='img-thumbnail' />";
+										}
+										else 
+										{
+											$tweet_pic = NULL;
 										}
 										
+										fwrite($mytweets, $screen_name);
+										fwrite($mytweets, "\t");
+										fwrite($mytweets, $tweet_time);
+										fwrite($mytweets, "\t");
+										fwrite($mytweets, $tweet_text);
+										fwrite($mytweets, "\t");
+										fwrite($mytweets, $tweet_pic);
+										fwrite($mytweets, "\n");
 									}
 									
 								echo "</div>";
@@ -172,5 +187,6 @@
 						echo "</div>";
 						echo "<hr />";
 					}
+					fclose($mytweets);
 				?>
 			</div> <!-- end <div class="col-lg-8"> -->
