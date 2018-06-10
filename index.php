@@ -34,6 +34,23 @@ $result = $conn->query($sql);
     font-size: 20px;
     font-family: "Times New Roman", Times, serif;
     }
+    .hnav {
+    padding-left:0;
+    margin-bottom:0;
+    list-style:none
+    }
+    .hnav>li {
+        position:relative;
+        display:block
+    }
+    .hnav>li>a {
+        position:relative;
+        display:block;
+        padding:10px 15px
+    }
+    .hnav>li>a:focus,.hnav>li>a:hover {
+    text-decoration:none;
+    }
     </style>
 </head>
 <body>
@@ -78,7 +95,7 @@ $result = $conn->query($sql);
   <div style="max-height:78vh;" class= "pre-scrollable"> 
     <h4>News Sources</h4>
     <form action=# method="post">
-      <ul  class="desc nav nav-pills nav-stacked">
+      <ul  class="desc hnav">
       
         <?php
           if ($result->num_rows > 0) {
