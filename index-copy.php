@@ -51,7 +51,50 @@ $result = $conn->query($sql);
     .hnav>li>a:focus,.hnav>li>a:hover {
     text-decoration:none;
     }
+    .panel-actions {
+  margin-top: -20px;
+  margin-bottom: 0;
+  text-align: right;
+}
+.panel-actions a {
+  color:#333;
+}
+.panel-fullscreen {
+    display: block;
+    z-index: 9999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+}
     </style>
+    <script>
+    $(document).ready(function () {
+    //Toggle fullscreen
+    $("#panel-fullscreen").click(function (e) {
+        e.preventDefault();
+        
+        var $this = $(this);
+    
+        if ($this.children('i').hasClass('glyphicon-resize-full'))
+        {
+            $this.children('i').removeClass('glyphicon-resize-full');
+            $this.children('i').addClass('glyphicon-resize-small');
+        }
+        else if ($this.children('i').hasClass('glyphicon-resize-small'))
+        {
+            $this.children('i').removeClass('glyphicon-resize-small');
+            $this.children('i').addClass('glyphicon-resize-full');
+        }
+        $(this).closest('.panel').toggleClass('panel-fullscreen');
+    });
+});
+
+    </script>
 </head>
 <body>
 
@@ -121,11 +164,23 @@ $result = $conn->query($sql);
   </center>
   </div>
     <!-- PAGE CONTENT and PHP CODE WILL BE HERE -->  
-  <center>
+  
   <div class="col-sm-9">
-  <a style="width:100%;background-color: gray;" href="manage.php" class="btn btn-primary btn-block" role="button">Manage Your Sources</a>
-  </center>
-  <?php include 'tweets.php'; ?>
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Live Twitter Feed</h3>
+              <ul class="list-inline panel-actions">
+                  <li><a href="#" id="panel-fullscreen" role="button" title="Toggle fullscreen">
+                  <i class="glyphicon glyphicon-resize-full"></i></a></li>
+              </ul>
+          </div>
+          <div class="panel-body">
+            <!-- <a style="width:100%;background-color: gray;" href="manage.php" 
+            class="btn btn-primary btn-block" role="button">Manage Your Sources</a> -->
+
+            <?php include 'tweets.php'; ?>
+          </div>
+      </div>
   </div>
   
   

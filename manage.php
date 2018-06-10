@@ -27,7 +27,7 @@
 		?>
 		<form id="form3" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" >
 			<h2>Please select a country</h2>
-			<select name="country" required>
+			<select class="form-control" name="country" required>
 				<option value="qa">Qatar</option>
 				<option value="sa">Saudi Arabia</option>
 				<option value="ae">UAE</option>
@@ -35,8 +35,8 @@
 				<option value="uk">UK</option>
 				<option value="us">USA</option>
 			</select>
-
-			<select name="category" required>
+			<br>
+			<select class="form-control" name="category" required>
 				<h2>Please select a category</h2>
 				<option value="General">General</option>
 				<option value="Entertainment">Entertainment</option>

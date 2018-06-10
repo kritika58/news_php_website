@@ -50,7 +50,7 @@
 	// specify number of tweets to be shown and twitter username
 	// for example, we want to show 20 of Taylor Swift's twitter posts
 	$request = array(
-						'count' => '10',
+						'count' => '20',
 						'screen_name' => 'AJArabic' 
 	);
 	
