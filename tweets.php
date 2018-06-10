@@ -164,7 +164,7 @@
 										{
 											// get tweet picture
 											$tweet_pic = $tweet['entities']['media'][0]['media_url_https'];
-											echo "<img src='{$tweet_pic}' class='img-thumbnail' />";
+											echo "<img style=\"width:250px; height:150px;\" src='{$tweet_pic}' class='img-thumbnail' />";
 										}
 										else 
 										{
