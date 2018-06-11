@@ -106,7 +106,7 @@ $result = $conn->query($sql);
   <a class="heading navbar-brand">QCRI- Mega News Project</a>
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search">Search</button>
   </form>
 </nav>
   <!-- Navbar content -->
@@ -119,25 +119,26 @@ $result = $conn->query($sql);
           <input type="text" name="Search" value="Search"><br>
           <input type="submit" value="search">
           </form>
-     
+      -->
           <?php
           $count=0;
           if(isset($_POST['search'])){
+            $user_name=$_POST['search'];
             while($row = $result->fetch_array(MYSQLI_ASSOC)){
-                              foreach ($row[user_name] as $user_name) {
-                              $count++ ;
-                                  if($search== $user_name){
-                                  echo "The news source you are looking for is in row number" . $count;
-                                  echo "if statement";
+                  foreach ($row[user_name] as $user_name) {
+                  $count++ ;
+                      if($search== $user_name){
+                      echo "The news source you are looking for is in row number" . $count;
+                      echo "if statement";
 
-                                  }
-                                  echo "in loop";
-                              }
+                      }
+                      echo "in loop";
+                  }
                 echo "while";
             }
 
           }
-          ?>  -->
+          ?> 
     
   
   <div class="col-sm-3 sidenav" >
