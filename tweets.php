@@ -16,7 +16,7 @@
 	display: inline-block;
 }
 .tweet_time {
-	font-size: 15px;
+	font-size: 18px;
     font-family: "Times New Roman", Times, serif;			
 	display:inline-block;
 }
@@ -35,8 +35,45 @@
 	vertical-align:top;
 }
 </style>
+<?php 
 
+$command = escapeshellcmd('/usr/custom/test.py');
+$output = shell_exec($command);
+echo $output;
+
+?>
 <!-- TWITTER USER PROFILE INFORMATION WILL BE HERE -->
+<?php
+function time_elapsed_string($datetime,$present, $full = false) {
+   $now = new DateTime($present);
+   $ago = new DateTime($datetime);
+   $diff = $now->diff($ago);
+
+   $diff->w = floor($diff->d / 7);
+   $diff->d -= $diff->w * 7;
+
+   $string = array(
+       'y' => 'year',
+       'm' => 'month',
+       'w' => 'week',
+       'd' => 'day',
+       'h' => 'hour',
+       'i' => 'minute',
+       's' => 'second',
+   );
+   foreach ($string as $k => &$v) {
+       if ($diff->$k) {
+           $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+       } else {
+           unset($string[$k]);
+       }
+   }
+
+   if (!$full) $string = array_slice($string, 0, 1);
+   return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+?>
+
 <?php   	
 // keys from your app
 	$oauth_access_token = "996826218476462080-LlaSHEx8sxfmF1F5i7zqw0hBZhoze6b";
@@ -137,7 +174,7 @@
 	<?php
 		$statuses_count=$tweets[0]['user']['statuses_count'];
 		$followers_count=$tweets[0]['user']['followers_count'];
-		$now = date('Y-m-d H:i');
+		$now = gmdate('D M d H:i:s +0000 Y');
 		$mytweets = fopen("tweets.csv", "w");
 		
 		// show tweets
@@ -156,8 +193,8 @@
 						$tweet_text=$tweet['text'];					
 							
 						// make links clickable
-						$tweet_text=preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', '<a href="$1" target="_blank">Read More</a>', $tweet_text, $limit=1);
-						$tweet_text=preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', ' ', $tweet_text );
+						$tweet_text=preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', '<a href="$1" target="_blank">Read More &nbsp;</a>', $tweet_text);
+						//$tweet_text=preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', ' ', $tweet_text );
 												
 						// filter out the retweets 						
 						if(preg_match('/^RT/', $tweet_text) == 0)
@@ -174,7 +211,12 @@
 							
 							// get tweet time
 							$tweet_time = $tweet['created_at'];
-							echo "<div class='tweet_time'>$tweet_time</div>";
+                                        
+							//echo $tweet_time;
+							//echo nl2br("\n ");
+						
+							$t_time= time_elapsed_string($tweet_time,$now);
+							echo "<p class='tweet_time'>$t_time</p>";
 							echo nl2br("\n ");
 							
 							// output

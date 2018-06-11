@@ -214,6 +214,24 @@
                             <i style="color: red" class="gsize fa fa-youtube-play"></i></a>
                     </td>
                     </tr>
+                    <tr>
+                    <td>Google+:</td>
+                    <td>12345 connections</td>
+                    <td>
+                    <?php $google="https://plus.google.com/".$row["GooglePlus (https://plus.google.com/)"] ?>
+                            <a href=<?php echo $google ?> target="_blank" class="icoWikipedia" title="Google+">
+                            <img style="width:35px; height:35px" src="googleplus.png"></a>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>Instagram:</td>
+                    <td>12345 followers</td>
+                    <td>
+                    <?php $instagram="https://www.instagram.com/".$row["Instagram (https://www.instagram.com/)"] ?>
+                            <a href=<?php echo $instagram ?> target="_blank" class="icoWikipedia" title="Instagram">
+                            <img style="width:35px; height:35px" src="instagram.png"></a>
+                    </td>
+                    </tr>
                     </table> 
                     </div>
                 </div>

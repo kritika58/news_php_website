@@ -7,12 +7,13 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>QCRI- News Mega Project</title>
+  <title>QCRI-Mega News Project</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="scroll.css">
+  <link rel="stylesheet" type="text/css" href="navbar.css">
   <link rel="icon" type="image/png" href="favicon.gif">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -25,10 +26,10 @@ $result = $conn->query($sql);
 	<script src="libs/js/bootstrap/docs-assets/js/holder.js"></script>
     <style>
     .heading {
-    color: black;
     font-family: "Times New Roman", Times, serif;
     font-weight: bold;
-    font-size:30px;
+    font-size:200%;
+    float:left;
     }
     .gsize {
     font-size: 35px;
@@ -101,10 +102,14 @@ $result = $conn->query($sql);
 </head>
 <body>
 
-<div class="container-fluid">
-  <div style="padding: 2px 2px 2px 2px; margin: 5px; 5px; height:10%;" class="col-sm-12 row content">
-    
-      <center><h1 class="heading">QCRI- Mega News Project</h1><center>
+<nav class="navbar navbar-dark bg-dark justify-content-between">
+  <a class="heading navbar-brand">QCRI- Mega News Project</a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search">Search</button>
+  </form>
+</nav>
+  <!-- Navbar content -->
           <!-- SEARCH BUTTON -->
           <!--
           <div class=" head col-sm-12">
@@ -114,45 +119,45 @@ $result = $conn->query($sql);
           <input type="text" name="Search" value="Search"><br>
           <input type="submit" value="search">
           </form>
-     
+      -->
           <?php
           $count=0;
           if(isset($_POST['search'])){
+            $user_name1=$_POST['search'];
             while($row = $result->fetch_array(MYSQLI_ASSOC)){
-                              foreach ($row[user_name] as $user_name) {
-                              $count++ ;
-                                  if($search== $user_name){
-                                  echo "The news source you are looking for is in row number" . $count;
-                                  echo "if statement";
+                  foreach ($row[user_name] as $user_name1) {
+                  $count++ ;
+                      if($search== $user_name1){
+                      echo "The news source you are looking for is in row number" . $count;
+                      echo "if statement";
 
-                                  }
-                                  echo "in loop";
-                              }
-                echo "while";
+                      }
+                      echo "in loop";
+                  }
+                 echo "while";
             }
 
           }
-          ?>  -->
-
-  </div>
+          ?> 
     
   
   <div class="col-sm-3 sidenav" >
   <div style="max-height:78vh;" class= "pre-scrollable"> 
     
   <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">News Sources</a></li>
-                <li><a data-toggle="tab" href="#menu1">My Sources</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">All News</a></li>
+                <li><a data-toggle="tab" href="#menu1">Select</a></li>
+                <li><a data-toggle="tab" href="#menu2">My Sources</a></li>
   </ul>
     
   <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                <form action=# method="post">
+      <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
     
       <ul  class="desc hnav">
       <br>
         <center>
-        <input type="submit" class="btn btn-primary" value="Add to my sources">
+        <input type="submit" class="btn btn-primary" name="select" value="Add to my sources">
         </center>
         <br>
         <?php
@@ -172,8 +177,13 @@ $result = $conn->query($sql);
         <?php
           }}
         ?>
-        </form>
+        
       </ul>
+      
+      </form>
+
+
+
       </div>
 
       <div id="menu1" class="tab-pane fade msize">
@@ -202,7 +212,9 @@ $result = $conn->query($sql);
                 <input type="submit" name="apply" class="btn btn-primary" value="Apply">
               </center>
           </form>
+          <form id="form4" action="<?=$_SERVER['PHP_SELF'];?>" method="POST" >
           <?php 
+          
               if(isset($_POST['apply'])){
               $selected_country = $_POST['country'];
               if ($selected_country=='qa')
@@ -242,7 +254,7 @@ $result = $conn->query($sql);
                   $id[]=$row["user_id"];
                   $img[]=$row["user_profile_image_url"];
                   echo "<li>";
-                  echo "<span><input type=\"checkbox\" name=\"check_list1[]\" value=$uname[$i] checked>
+                  echo "<span><input type=\"checkbox\" name=\"check_list1[]\" value=$uname[$i]>
                   <a href=\"display.php?id=$id[$i]?>\">$uname[$i]
                   <img align=\"right\" style=\"width: 40px; height:40px;\" src=$img[$i]>
                   </span>
@@ -252,11 +264,95 @@ $result = $conn->query($sql);
               }
               echo "</ul>";
               echo "<br>";
+                            echo "<br>
+              <center>
+                <input type=\"submit\" name=\"add\" class=\"btn btn-primary\" value=\"Add to my sources\">
+              </center>";
+              echo "</form>";
               }
+
           ?>
+          
 
       </div>
+      <div id="menu2" class="tab-pane fade msize">
+      <?php 
+      		
+              if(isset($_POST['select'])){
+                echo "<ul  class='desc hnav'>";
+                if(!empty($_POST['check_list'])){
+                  // Loop to store and display values of individual checked checkbox.
+                  echo "<ul  class='desc hnav'>";
+                  foreach($_POST['check_list'] as $selected){
 
+                      $sql2 = "SELECT * FROM news_arabic WHERE user_name='".$selected."' ";
+                      $result2 = mysqli_query($conn,$sql2);
+
+                      if ($result2->num_rows > 0) {
+                        // output data of each row
+                            while($row2 = $result2->fetch_assoc()) { 
+
+
+                      $uname2=$row2["user_name"];
+                      $id2=$row2["user_id"];
+                      $img2=$row2["user_profile_image_url"];
+                      echo "<li>";
+                      echo "<span><input type=\"checkbox\" name=\"check_list2[]\" value=$uname2 checked>
+                      <a href=\"display.php?id=$id2?>\">$uname2
+                      <img align=\"right\" style=\"width: 40px; height:40px;\" src=$img2>
+                      </span>
+                      </a>
+                      </li>";  
+                            }
+                          }                                
+
+                  }
+                  mysqli_free_result($result2);
+                  echo "</ul>";
+                  
+                  }
+
+              }
+      ?>
+      <?php 
+      		
+          if(isset($_POST['add'])){
+            echo "<ul  class='desc hnav'>";
+            if(!empty($_POST['check_list1'])){
+              // Loop to store and display values of individual checked checkbox.
+              echo "<ul  class='desc hnav'>";
+              foreach($_POST['check_list1'] as $selected){
+
+                  $sql4 = "SELECT * FROM news_arabic WHERE user_name='".$selected."' ";
+                  $result4 = mysqli_query($conn,$sql4);
+
+                  if ($result4->num_rows > 0) {
+                    // output data of each row
+                        while($row4 = $result4->fetch_assoc()) { 
+
+
+                  $uname4=$row4["user_name"];
+                  $id4=$row4["user_id"];
+                  $img4=$row4["user_profile_image_url"];
+                  echo "<li>";
+                  echo "<span><input type=\"checkbox\" name=\"check_list3[]\" value=$uname4 checked>
+                  <a href=\"display.php?id=$id4?>\">$uname4
+                  <img align=\"right\" style=\"width: 40px; height:40px;\" src=$img4>
+                  </span>
+                  </a>
+                  </li>";  
+                        }
+                      }                                
+
+              }
+              mysqli_free_result($result4);
+              echo "</ul>";
+              
+              }
+
+          }
+  ?>
+        </div>
 
       </div>
 
@@ -265,9 +361,9 @@ $result = $conn->query($sql);
 
 
   </div>
-  
+  <hr> 
   </div>
-  <hr>
+ 
     <!-- PAGE CONTENT and PHP CODE WILL BE HERE -->  
   
   <div class="col-sm-9">
