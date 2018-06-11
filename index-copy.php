@@ -1,4 +1,6 @@
+
 <?php
+//WITHOUT COMMON ARRAY
 include 'dbconnection.php';
 $sql = "SELECT * FROM news_arabic";
 $result = $conn->query($sql);
@@ -212,7 +214,7 @@ $result = $conn->query($sql);
                 <input type="submit" name="apply" class="btn btn-primary" value="Apply">
               </center>
           </form>
-          <form id="form4" action="<?=$_SERVER['PHP_SELF'];?>" method="POST" >
+          
           <?php 
           
               if(isset($_POST['apply'])){
@@ -245,7 +247,7 @@ $result = $conn->query($sql);
               $sql = "SELECT * FROM news_arabic WHERE country_code='".$selected_country."' AND Category='".$selected_category."' ";
               $result1 = $conn->query($sql);
               echo '<p class=\'desc\'>You have selected '.mysqli_num_rows($result1).' sources from '.$country_name.' in '.$selected_category.' category.</p>';
-          
+              echo "<form id=\"form4\" action=\"\" method=\"POST\" >";
               echo "<ul  class='desc hnav'>";		
               $i=0;
               while ($row = $result1->fetch_array(MYSQLI_ASSOC))
@@ -262,14 +264,14 @@ $result = $conn->query($sql);
                   </li>";  
                   $i++;
               }
-              echo "</ul>";
-              echo "<br>";
-                            echo "<br>
-              <center>
-                <input type=\"submit\" name=\"add\" class=\"btn btn-primary\" value=\"Add to my sources\">
-              </center>";
-              echo "</form>";
+              echo "</ul>";                           
+
               }
+              echo "<br>
+              <center>
+              <input type=\"submit\" name=\"add\" class=\"btn btn-primary\" value=\"Add to my sources\">
+            </center>";
+            echo "</form>";
 
           ?>
           
@@ -279,7 +281,6 @@ $result = $conn->query($sql);
       <?php 
       		
               if(isset($_POST['select'])){
-                echo "<ul  class='desc hnav'>";
                 if(!empty($_POST['check_list'])){
                   // Loop to store and display values of individual checked checkbox.
                   echo "<ul  class='desc hnav'>";
@@ -317,7 +318,6 @@ $result = $conn->query($sql);
       <?php 
       		
           if(isset($_POST['add'])){
-            echo "<ul  class='desc hnav'>";
             if(!empty($_POST['check_list1'])){
               // Loop to store and display values of individual checked checkbox.
               echo "<ul  class='desc hnav'>";
@@ -341,6 +341,7 @@ $result = $conn->query($sql);
                   </span>
                   </a>
                   </li>";  
+                  echo $uname4;
                         }
                       }                                
 

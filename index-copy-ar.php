@@ -127,7 +127,7 @@ $my_final_sources=array();
           if(isset($_POST['search'])){
             $user_name1=$_POST['search'];
             while($row = $result->fetch_array(MYSQLI_ASSOC)){
-                  foreach ($row[user_screen_name] as $user_name1) {
+                  foreach ($row[user_name] as $user_name1) {
                   $count++ ;
                       if($search== $user_name1){
                       echo "The news source you are looking for is in row number" . $count;
@@ -169,9 +169,9 @@ $my_final_sources=array();
         ?>
 
         <li>
-        <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_screen_name"]?>">
+        <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_name"]?>">
         <a href="display.php?id=<?php echo $row["user_id"]?>">
-        <?php echo $row["user_screen_name"]?>
+        <?php echo $row["user_name"]?>
         <img align="right" style="width: 40px; height:40px;" src="<?php echo $row["user_profile_image_url"]?>">
         </span>
         </a>
@@ -244,17 +244,17 @@ $my_final_sources=array();
                 $country_name='Kuwait';
               }
               $selected_category = $_POST['category'];
-              $sql = "SELECT * FROM news_arabic WHERE country_code='".$selected_country."' AND Category='".$selected_category."' ";
-              $result1 = $conn->query($sql);
+              $sql1 = "SELECT * FROM news_arabic WHERE country_code='".$selected_country."' AND Category='".$selected_category."' ";
+              $result1 = $conn->query($sql1);
               echo '<p class=\'desc\'>You have selected '.mysqli_num_rows($result1).' sources from '.$country_name.' in '.$selected_category.' category.</p>';
           
               echo "<ul  class='desc hnav'>";		
               $i=0;
-              while ($row = $result1->fetch_array(MYSQLI_ASSOC))
+              while ($row1 = $result1->fetch_array(MYSQLI_ASSOC))
               {
-                  $uname[]=$row["user_screen_name"];
-                  $id[]=$row["user_id"];
-                  $img[]=$row["user_profile_image_url"];
+                  $uname[]=$row1["user_name"];
+                  $id[]=$row1["user_id"];
+                  $img[]=$row1["user_profile_image_url"];
                   echo "<li>";
                   echo "<span><input type=\"checkbox\" name=\"check_list1[]\" value=$uname[$i]>
                   <a href=\"display.php?id=$id[$i]?>\">$uname[$i]
@@ -293,7 +293,7 @@ $my_final_sources=array();
                 
                 }
                 foreach($my_final_sources as $name){
-                  $sql_f = "SELECT * FROM news_arabic WHERE user_screen_name='".$name."' ";
+                  $sql_f = "SELECT * FROM news_arabic WHERE user_name='".$name."' ";
                     $result_f = mysqli_query($conn,$sql_f);
   
                     if ($result_f->num_rows > 0) {
@@ -302,7 +302,7 @@ $my_final_sources=array();
                           while($row_f = $result_f->fetch_assoc()) { 
   
   
-                    $uname_f=$row_f["user_screen_name"];
+                    $uname_f=$row_f["user_name"];
                     $id_f=$row_f["user_id"];
                     $img_f=$row_f["user_profile_image_url"];
                     echo "<li>";
@@ -329,14 +329,12 @@ $my_final_sources=array();
                 $k=count($my_final_sources);
                 foreach($_POST['check_list1'] as $selected){
                   $my_final_sources[$k]=$selected;
-                  //echo $my_final_sources[$k]."\n";
-                  //array_push($my_final_sources, $selected);
-                  //echo $my_final_sources[$k];
+                  //echo 'Selected: '.$selected.'    ';
                   $k++;
               
               }
               foreach($my_final_sources as $name){
-                $sql_f = "SELECT * FROM news_arabic WHERE user_screen_name='".$name."' ";
+                $sql_f = "SELECT * FROM news_arabic WHERE user_name='".$name."' ";
                   $result_f = mysqli_query($conn,$sql_f);
 
                   if ($result_f->num_rows > 0) {
@@ -345,7 +343,7 @@ $my_final_sources=array();
                         while($row_f = $result_f->fetch_assoc()) { 
 
 
-                  $uname_f=$row_f["user_screen_name"];
+                  $uname_f=$row_f["user_name"];
                   $id_f=$row_f["user_id"];
                   $img_f=$row_f["user_profile_image_url"];
                   echo "<li>";
