@@ -278,6 +278,7 @@ $my_final_sources=array();
       </div>
       <div id="menu2" class="tab-pane fade msize">
         <br>
+        <form id="form5_del" action="<?=$_SERVER['PHP_SELF'];?>" method="POST" >
       <?php 
       		
               if(isset($_POST['select'])){
@@ -316,10 +317,10 @@ $my_final_sources=array();
                 }                           
 
                   }
-                 
                   }
 
       ?>
+      
       <?php 
       		
           if(isset($_POST['add'])){
@@ -359,9 +360,58 @@ $my_final_sources=array();
               }
             }
 
+          }
+  ?>
+
+<!--- DELETION CODE -->
+  <?php 
+      		
+          if(isset($_POST['delete'])){
+            if(!empty($_POST['check_list_f'])){
+              // Loop to store and display values of individual checked checkbox.
+                $k=count($my_final_sources);
+                foreach($_POST['check_list_f'] as $selected){
+                  if ($my_final_sources[$k]=$selected)
+                  {
+                    unset($my_final_sources[$k]);
+                  }
+                  $k++;
+              
+              }
+              foreach($my_final_sources as $name){
+                echo $name;
+                $sql_f = "SELECT * FROM news_arabic WHERE user_screen_name='".$name."' ";
+                  $result_f = mysqli_query($conn,$sql_f);
+
+                  if ($result_f->num_rows > 0) {
+                    // output data of each row
+                    echo "<ul  class='desc hnav'>";
+                        while($row_f = $result_f->fetch_assoc()) { 
+
+
+                  $uname_f=$row_f["user_screen_name"];
+                  $id_f=$row_f["user_id"];
+                  $img_f=$row_f["user_profile_image_url"];
+                  echo "<li>";
+                  echo "<span><input type=\"checkbox\" name=\"check_list_f[]\" value=$uname_f checked>
+                  <a href=\"display.php?id=$id_f?>\">$uname_f
+                  <img align=\"right\" style=\"width: 40px; height:40px;\" src=$img_f>
+                  </span>
+                  </a>
+                  </li>";  
+                        }
+                      }
+              }
+            }
 
           }
   ?>
+            <br>
+                  <center>
+                    <input type="submit" name="delete" class="btn btn-danger" value="Delete">
+                  </center>
+                  </form>
+
         </div>
 
       </div>
