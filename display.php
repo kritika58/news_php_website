@@ -5,6 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="scroll.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="favicon.gif">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -103,7 +104,7 @@
                 <li><a data-toggle="tab" href="#menu1">Wikipedia &ensp;<span style="float:right;">
                 <img align="left" style="width: 25px; height:25px;" src="wiki.png">
                                 </span></a></li>
-                <li><a data-toggle="tab" href="#menu2">Source  &ensp;<span style="float:right;">
+                <li><a data-toggle="tab" href="#menu2">Website  &ensp;<span style="float:right;">
                 <img align="left" style="width: 25px; height:25px;" src="<?php echo $row["user_profile_image_url"]?>">
                 </span></a></li>
                 <li><a data-toggle="tab" href="#menu3">RSS Feed &ensp;<span style="float:right;">

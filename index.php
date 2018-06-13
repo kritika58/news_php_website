@@ -145,11 +145,10 @@ $my_final_sources=array();
   
   <div class="col-sm-3 sidenav" >
   <div style="max-height:78vh;" class= "pre-scrollable"> 
-    
   <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">All News</a></li>
+                <li class="active"><a data-toggle="tab" href="#home">All</a></li>
                 <li><a data-toggle="tab" href="#menu1">Select</a></li>
-                <li><a data-toggle="tab" href="#menu2">My Sources</a></li>
+                <li><a data-toggle="tab" href="#menu2">My List</a></li>
   </ul>
     
   <div class="tab-content">
