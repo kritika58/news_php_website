@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>QCRI-Mega News Project</title>
+      <title>QCRI-Mega News (English) Project</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -103,11 +103,11 @@
    </head>
    <body>
       <nav class="navbar navbar-dark bg-dark justify-content-between">
-         <a class="heading navbar-brand">QCRI- Mega News Project</a>
+         <a class="heading navbar-brand">Live News Project</a>
          <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="search">Search</button>
-            <a class="btn btn-default my-2 my-sm-0" href="http://localhost/English%20website/index.php">EN</a>
+            <a class="btn btn-default my-2 my-sm-0" href="http://localhost/English%20website/">EN</a>
          </form>
       </nav>
       <!-- SEARCH BUTTON -->
@@ -138,7 +138,7 @@
          ?> 
       <div class="col-sm-3 sidenav" >
          <div style="max-height:78vh;" class= "pre-scrollable">
-         <p class="desc">News<span style="float:left"><img style="width:35px;height:35px;" src="favicon.gif"></span></p>         
+         <p class="desc">News<span style="float:left"><img style="width:35px;height:35px;" src="favicon.gif"></span></p>
             <ul class="nav nav-tabs">
                <li id="all" class="active"><a data-toggle="tab" href="#home">All</a></li>
                <li id="select" ><a data-toggle="tab" href="#menu1">Select</a></li>
@@ -160,7 +160,7 @@
                            ?>
                         <li>
                            <span><input type="checkbox" name="check_list[]" value="<?php echo $row["user_name"]?>">
-                           <a href="display.php?id=<?php echo $row["user_id"]?>">
+                           <a href="display.php?id=<?php echo $row["Serial"]?>">
                            <?php echo $row["user_name"]?>
                            <img align="right" style="width: 40px; height:40px;" src="<?php echo $row["user_profile_image_url"]?>">
                            </span>
@@ -176,12 +176,18 @@
                   <br>
                   <form id="form3" action="<?=$_SERVER['PHP_SELF'];?>" method="POST" >
                      <select class="form-control" name="country" required>
-                        <option value="qa">Qatar</option>
-                        <option value="sa">Saudi Arabia</option>
-                        <option value="ae">UAE</option>
-                        <option value="kw">Kuwait</option>
-                        <option value="gb">UK</option>
-                        <option value="us">USA</option>
+                     <?php 
+                     $sql_country="SELECT DISTINCT country, country_code from news_arabic";
+                     $result_country = $conn->query($sql_country);
+                     $i=0;
+                     while ($row_country = $result_country->fetch_array(MYSQLI_ASSOC))
+                        {
+                            $ccountry[]=$row_country["country"];
+                            $ccode[]=$row_country["country_code"];
+                            echo "<option value=$ccode[$i]>$ccountry[$i]</option>";  
+                     $i++;
+                     }                     
+                     ?>                    
                      </select>
                      <br>
                      <select class="form-control" name="category" required>
@@ -313,14 +319,14 @@
                         $selected_category = $_POST['category'];
                         $sql1 = "SELECT * FROM news_arabic WHERE country_code='".$selected_country."' AND Category='".$selected_category."' ";
                         $result1 = $conn->query($sql1);
-                        echo '<p class=\'desc\'>You have selected '.mysqli_num_rows($result1).' sources from '.$country_name.' in '.$selected_category.' category.</p>';
-                        
+                        //echo '<p class=\'desc\'>You have selected '.mysqli_num_rows($result1).' sources from '.$country_name.' in '.$selected_category.' category.</p>';
+                        if ($result1->num_rows > 0) {
                         echo "<ul  class='desc hnav'>";		
                         $i=0;
                         while ($row1 = $result1->fetch_array(MYSQLI_ASSOC))
                         {
                             $uname[]=$row1["user_name"];
-                            $id[]=$row1["user_id"];
+                            $id[]=$row1["Serial"];
                             $img[]=$row1["user_profile_image_url"];
                             echo "<li>";
                             echo "<span><input type=\"checkbox\" name=\"check_list1[]\" value=$uname[$i]>
@@ -331,6 +337,10 @@
                             </li>";  
                      $i++;
                      }
+                    }
+                    else {
+                      echo "<p class='desc'>No match found.</p>";
+                    }
                      }
                      echo "</ul>";
                   ?>
@@ -338,18 +348,19 @@
                </div>
                <div id="menu2" class="tab-pane fade msize">
                   <br>
+                  <form id="form_del" action="<?=$_SERVER['PHP_SELF'];?>" method="POST" > 
                   <?php 
                      if(isset($_POST['select'])){
                        if(!empty($_POST['check_list'])){
                          foreach($_POST['check_list'] as $selected){
-                         $sql = "INSERT INTO my_sources (user_name)
+                         $sql = "INSERT INTO my_sources_ar (us_name)
                          VALUES ('".$selected."')";
                      
                          $result = mysqli_query($conn,$sql);
                          }                
                        }
                        
-                         $sql_f = "SELECT * FROM my_sources,news_arabic WHERE my_sources.user_name=news_arabic.user_name";
+                         $sql_f = "SELECT * FROM my_sources_ar,news_arabic WHERE my_sources_ar.us_name=news_arabic.user_name";
                            $result_f = mysqli_query($conn,$sql_f);
                      
                            if ($result_f->num_rows > 0) {
@@ -359,7 +370,7 @@
                      
                      
                            $uname_f=$row_f["user_name"];
-                           $id_f=$row_f["user_id"];
+                           $id_f=$row_f["Serial"];
                            $img_f=$row_f["user_profile_image_url"];
                            echo "<li>";
                            echo "<span><input type=\"checkbox\" name=\"check_list_f[]\" value=$uname_f checked>
@@ -376,14 +387,13 @@
                      if(isset($_POST['add'])){
                        if(!empty($_POST['check_list1'])){
                            foreach($_POST['check_list1'] as $selected){
-                             $sql = "INSERT INTO my_sources (user_name)
+                             $sql = "INSERT INTO my_sources_ar (us_name)
                              VALUES ('".$selected."')";
                          
                              $result = mysqli_query($conn,$sql);
-                             echo "inserted ".$selected;
                          
                          }
-                           $sql_f = "SELECT * FROM my_sources,news_arabic WHERE my_sources.user_name=news_arabic.user_name";
+                           $sql_f = "SELECT * FROM my_sources_ar,news_arabic WHERE my_sources_ar.us_name=news_arabic.user_name";
                              $result_f = mysqli_query($conn,$sql_f);
                      
                              if ($result_f->num_rows > 0) {
@@ -393,7 +403,47 @@
                      
                      
                              $uname_f=$row_f["user_name"];
-                             $id_f=$row_f["user_id"];
+                             $id_f=$row_f["Serial"];
+                             $img_f=$row_f["user_profile_image_url"];
+                             echo "<li>";
+                             echo "<span><input type=\"checkbox\" name=\"check_list_f[]\" value=$uname_f checked>
+                             <a href=\"display.php?id=$id_f?>\">$uname_f
+                            <img align=\"right\" style=\"width: 40px; height:40px;\" src=$img_f>
+                            </span>
+                            </a>
+                            </li>";  
+                  }
+                  }
+                  }
+                  }
+                  ?>                  
+                  <br>
+                  <center>
+                     <input type="submit" name="delete" class="btn btn-danger" value="Delete">
+                  </center>
+                  </form>
+                  <?php 
+                     if(isset($_POST['delete'])){
+                      $r= mysqli_query($conn,"TRUNCATE TABLE my_sources_ar");
+                       if(!empty($_POST['check_list_f'])){                         
+                           foreach($_POST['check_list_f'] as $selected){
+                             $sql = "INSERT INTO my_sources_ar (us_name)
+                             VALUES ('".$selected."')";
+                         
+                             $result = mysqli_query($conn,$sql);
+                         
+                         }
+                           $sql_f = "SELECT * FROM my_sources_ar,news_arabic WHERE my_sources_ar.us_name=news_arabic.user_name";
+                             $result_f = mysqli_query($conn,$sql_f);
+                     
+                             if ($result_f->num_rows > 0) {
+                               // output data of each row
+                               echo "<ul  class='desc hnav'>";
+                                   while($row_f = $result_f->fetch_assoc()) { 
+                     
+                     
+                             $uname_f=$row_f["user_name"];
+                             $id_f=$row_f["Serial"];
                              $img_f=$row_f["user_profile_image_url"];
                              echo "<li>";
                              echo "<span><input type=\"checkbox\" name=\"check_list_f[]\" value=$uname_f checked>
@@ -407,51 +457,6 @@
                   }
                   }
                   ?>
-                  <?php 
-                     if(isset($_POST['delete'])){
-                       if(!empty($_POST['check_list_f'])){
-                         // Loop to store and display values of individual checked checkbox.
-                           $k=count($my_final_sources);
-                           foreach($_POST['check_list_f'] as $selected){
-                             if ($my_final_sources[$k]=$selected)
-                             {
-                               unset($my_final_sources[$k]);
-                             }
-                             $k++;
-                         
-                         }
-                         foreach($my_final_sources as $name){
-                           echo $name;
-                           $sql_f = "SELECT * FROM news_arabic WHERE user_name='".$name."' ";
-                             $result_f = mysqli_query($conn,$sql_f);
-                     
-                             if ($result_f->num_rows > 0) {
-                               // output data of each row
-                               echo "<ul  class='desc hnav'>";
-                                   while($row_f = $result_f->fetch_assoc()) { 
-                     
-                     
-                             $uname_f=$row_f["user_name"];
-                             $id_f=$row_f["user_id"];
-                             $img_f=$row_f["user_profile_image_url"];
-                             echo "<li>";
-                             echo "<span><input type=\"checkbox\" name=\"check_list_f[]\" value=$uname_f checked>
-                             <a href=\"display.php?id=$id_f?>\">$uname_f
-                  <img align=\"right\" style=\"width: 40px; height:40px;\" src=$img_f>
-                  </span>
-                  </a>
-                  </li>";  
-                  }
-                  }
-                  }
-                  }
-                  }
-                  ?>
-                  <br>
-                  <center>
-                     <input type="submit" name="delete" class="btn btn-danger" value="Delete">
-                  </center>
-                  </form>
                </div>
             </div>
          </div>
@@ -461,7 +466,7 @@
       <div class="col-sm-9">
          <div class="panel panel-default">
             <div class="panel-heading">
-               <h3 class="panel-title">Live Twitter Feed</h3>
+               <h3 class="panel-title">News Feed</h3>
                <ul class="list-inline panel-actions">
                   <li><a href="#" id="panel-fullscreen" role="button" title="Toggle fullscreen">
                      <i class="glyphicon glyphicon-resize-full"></i></a>
