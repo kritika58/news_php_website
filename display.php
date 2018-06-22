@@ -92,7 +92,7 @@
     $id= $_GET["id"];
     ?>
     <?php 
-        $sql = "SELECT * FROM news_arabic WHERE user_id='$id'"; 
+        $sql = "SELECT * FROM news_arabic WHERE Serial='$id'"; 
         $rs = $conn->query($sql);
         $row = mysqli_fetch_array($rs);
     ?>
@@ -170,7 +170,7 @@
                                 }
                                 ?>
                                 <td>Category:</td>
-                                <td><?php echo $fcat?><span style="float:right;">
+                                <td><?php echo $cat?><span style="float:right;">
                                 <i class="gsize <?php echo $gicon?>"></i></span></td>
                             </tr>
                         </table>
