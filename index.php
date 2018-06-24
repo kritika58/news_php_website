@@ -476,7 +476,88 @@
             <div class="panel-body">
                <!-- <a style="width:100%;background-color: gray;" href="manage.php" 
                   class="btn btn-primary btn-block" role="button">Manage Your Sources</a> -->
-               <?php include 'tweets.php'; ?>
+
+                  <?php if(isset($_POST['apply'])){
+
+$sql_i="SELECT * FROM my_sources_ar";
+$result_i = mysqli_query($conn,$sql);
+echo $result_i;
+$s_name[]=array();
+$p=0;
+
+    while($row_i = $result_i->fetch_array(MYSQLI_ASSOC)) {
+      $s_name[$p]=$row_i['us_name'];
+      $p++;
+
+    }
+
+  $sql_t="SELECT * FROM tweets WHERE screen_name IN ('$s_name')";
+  $result_t = mysqli_query($conn,$sql);
+  if ($result_t->num_rows > 0) {
+      while($row_t = $result_t->fetch_array(MYSQLI_ASSOC)) { 
+          echo $row_t['screen_name'].'<br>';
+          echo '<br>';
+          echo $row_t['tweet'].'<br>';
+          echo '<br>';
+      }
+  }
+                        
+}
+                  ?>
+                  <?php if(isset($_POST['select'])){
+
+$sql_i="SELECT * FROM my_sources_ar";
+$result_i = mysqli_query($conn,$sql);
+echo $result_i;
+$s_name[]=array();
+$p=0;
+
+    while($row_i = $result_i->fetch_array(MYSQLI_ASSOC)) {
+      $s_name[$p]=$row_i['us_name'];
+      $p++;
+
+    }
+
+  $sql_t="SELECT * FROM tweets WHERE screen_name IN ('$s_name')";
+  $result_t = mysqli_query($conn,$sql);
+  if ($result_t->num_rows > 0) {
+      while($row_t = $result_t->fetch_array(MYSQLI_ASSOC)) { 
+          echo $row_t['screen_name'].'<br>';
+          echo '<br>';
+          echo $row_t['tweet'].'<br>';
+          echo '<br>';
+      }
+  }
+                        
+}
+                    ?>
+                    <?php if(isset($_POST['add'])){
+
+                      $sql_i="SELECT * FROM my_sources_ar";
+                      $result_i = mysqli_query($conn,$sql);
+                      echo $result_i;
+                      $s_name[]=array();
+                      $p=0;
+
+                          while($row_i = $result_i->fetch_array(MYSQLI_ASSOC)) {
+                            $s_name[$p]=$row_i['us_name'];
+                            $p++;
+
+                          }
+
+                        $sql_t="SELECT * FROM tweets WHERE screen_name IN ('$s_name')";
+                        $result_t = mysqli_query($conn,$sql);
+                        if ($result_t->num_rows > 0) {
+                            while($row_t = $result_t->fetch_array(MYSQLI_ASSOC)) { 
+                                echo $row_t['screen_name'].'<br>';
+                                echo '<br>';
+                                echo $row_t['tweet'].'<br>';
+                                echo '<br>';
+                            }
+                        }
+                                              
+                      }
+                        ?>
             </div>
          </div>
       </div>
